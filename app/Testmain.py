@@ -111,8 +111,17 @@ def cargar_imagen(ruta):
     except FileNotFoundError:
         print(f"Error: no se puede encontrar el archivo en la ruta {ruta}")
         return None
+def cargar_imagenlogo(ruta):
+    try:
+        imagen = Image.open(ruta)
+        imagen = imagen.resize((100,70), Image.LANCZOS)
+        return ImageTk.PhotoImage(imagen)
+    except FileNotFoundError:
+        print(f"Error: no se puede encontrar el archivo en la ruta {ruta}")
+        return None
 
 # Rutas de imágenes
+ruta_imagen_logo=os.path.join(os.path.dirname(__file__), 'Assets/images/llantera_6.png')
 ruta_imagen_btnrueda = os.path.join(os.path.dirname(__file__), 'Assets/images/rueda.png')
 ruta_imagen_btnproveedor = os.path.join(os.path.dirname(__file__), 'Assets/images/proveedor.png')
 ruta_imagen_btnreporte = os.path.join(os.path.dirname(__file__), 'Assets/images/reporte.png')
@@ -121,9 +130,11 @@ imagenrueda = cargar_imagen(ruta_imagen_btnrueda)
 imagenproveedor = cargar_imagen(ruta_imagen_btnproveedor)
 imagenreporte = cargar_imagen(ruta_imagen_btnreporte)
 
+imagenlogo = cargar_imagenlogo(ruta_imagen_logo)
 # Configuración de frames
 window.configure(bg=colorfondo)
 framesuperior = tk.Frame(window, height=220, bg='#005a9d')
+
 framelateral = tk.Frame(window, bg=colorbanner)
 framesuperior.pack(side='top', fill='both', ipady=40)
 framelateral.pack(side='left', fill='y')
@@ -131,6 +142,7 @@ framecontenido = tk.Frame(window, bg='gray')
 framecontenido.pack(side='right', fill='both', expand=True, pady=25, padx=25, anchor='e')
 
 # Widgets framsuperior
+lbllogo = tk.Label(framesuperior, image=imagenlogo,background=colorbanner).pack(side='left', fill='y')
 label1 = ttk.Label(framesuperior, text='  Llantera Urias', font=('Arial', 25, 'bold'), background=colorbanner, foreground='white')
 label1.pack(side='left', fill='both', expand=True)
 
