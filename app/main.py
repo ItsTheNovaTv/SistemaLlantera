@@ -116,11 +116,44 @@ def mostrar_inventario():
 
 
 def reportes():
+    limpiar_frame(framecontenido)
     """Función para abrir la ventana de agregar inventario."""
     addinventario = tk.Tk()
     addinventario.title('Agregar nuevo objeto')
     addinventario.geometry('820x520')
     Texto = tk.Label(addinventario, text='SELECCION DE REPORTE A PDF', font=('Arial', 40, 'bold')).pack(expand=True, fill='both')
+        # Frame para el Treeview
+    frame_treeview_inventario = tk.Frame(framecontenido, width=100)  
+    frame_treeview_inventario.pack(side='left', fill='y')
+
+  
+    # Treeview para mostrar proveedores
+    TablaInventario = ttk.Treeview(addinventario, columns=("ID", "Marca", "Medida", "Disponible"), show='headings')
+    TablaInventario.pack(anchor='n', fill='y')
+
+    # Crear headings 
+    TablaInventario.heading("ID", text="ID")  
+    TablaInventario.heading("Marca", text="Marca")                
+    TablaInventario.heading("Medida", text="Medida")              
+    TablaInventario.heading("Disponible", text="Disponible")      
+
+    # Definir tamaño
+    TablaInventario.column("ID", width=50)
+    TablaInventario.column("Marca", width=100)
+    TablaInventario.column("Medida", width=100)
+    TablaInventario.column("Disponible", width=100)
+     
+
+    # Scrollbar para el Treeview
+    scrollbar = ttk.Scrollbar(addinventario, orient="vertical", command=TablaInventario.yview)
+    TablaInventario.configure(yscrollcommand=scrollbar.set)
+    scrollbar.pack(side='right', fill='y')
+
+    # Obtener datos y llenar el Treeview
+    datos = obtener_datos_inventario()
+    for fila in datos:
+        TablaInventario.insert('', 'end', values=fila)
+
 
 # Crear ventana principal
 window = tk.Tk()
