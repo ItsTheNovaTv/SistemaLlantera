@@ -28,6 +28,7 @@ def validacion_login():
     """Validar usuario y contraseña"""
 
 def obtener_datos_inventario():
+    print("Accedso a proveedores")
     """Obtener datos de la tabla llantas."""
     conexion = conectar_bd()
     if conexion is not None:

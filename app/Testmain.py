@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 import os
-from coneccion import obtener_datos_inventario, obtener_proveedor, guardar_proveedor  # Importa las funciones desde tu archivo de conexión
+from Testconexion import obtener_datos_inventario, obtener_proveedor 
 
 # Colores de fondo y banner
 colorfondo = '#1f1f1f'
