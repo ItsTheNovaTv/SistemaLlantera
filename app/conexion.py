@@ -43,6 +43,10 @@ def obtener_datos_inventario():
 def llenar_datos_inventario():
     """Se guardaran datos en tabla llantas dependiendo del id"""
 
+
+    
+    print('Se guardaron los datos')
+
 def Salida_datos_inventario():
     """Funcion para mover datos de tabla llantas a salida, quizas con trigger"""
 
