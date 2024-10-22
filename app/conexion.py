@@ -40,8 +40,20 @@ def obtener_datos_inventario():
         return filas
     return []
 
-def llenar_datos_inventario():
-    """Se guardaran datos en tabla llantas dependiendo del id"""
+def insertar_datos(id_value, marca_value, medida_value, disponible_value):
+    """Se guardaran datos en tabla llantas"""
+    conexion = conectar_bd()
+    if conexion:
+            cursor = conexion.cursor()
+            sql = "INSERT INTO llantas (id, marca, medida, cantidad_disponible) VALUES (%s, %s, %s, %s)"
+            valores = (id_value, marca_value, medida_value, disponible_value)
+            cursor.execute(sql, valores)
+            conexion.commit()
+            cursor.close()
+            conexion.close()
+            print("Datos insertados correctamente.")
+    else:
+        print("No se pudo establecer la conexión.")
 
 
     

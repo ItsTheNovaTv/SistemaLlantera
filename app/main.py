@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 import os
-from conexion import obtener_datos_inventario, obtener_proveedor,llenar_datos_inventario
+from conexion import obtener_datos_inventario, obtener_proveedor,insertar_datos
 from tkinter import Scrollbar
 
 # Colores de fondo y banner
@@ -134,12 +134,31 @@ def mostrar_inventario():
     lblDisponible= tk.Label(frame_widgetscontenido1,text='Disponible: ').grid(padx=separacionx,pady=separacion, row=4,column=0)
 
     color2 = tk.Label(frame_widgetscontenido1, bg=colorbanner, height=2)
-    color2.grid(row=0, column=1, columnspan=2, sticky="we")    
-    entID= tk.Entry(frame_widgetscontenido1).grid(padx=separacionx, pady=separacion,row=1,column=1)
-    entMarca = tk.Entry(frame_widgetscontenido1).grid(padx=separacionx,pady=separacion, row=2,column=1)
-    entMedida= tk.Entry(frame_widgetscontenido1).grid(padx=separacionx,pady=separacion, row=3,column=1)
-    entDisponible = tk.Entry(frame_widgetscontenido1).grid(padx=separacionx,pady=separacion, row=4,column=1)
-    btnguardarinventario=tk.Button(frame_widgetscontenido1, text='Guardar', command=llenar_datos_inventario).grid(padx=separacionx,pady=separacion, row=5,column=1,)
+    color2.grid(row=0, column=1, columnspan=2, sticky="we")
+
+    # Crear y colocar los Entry
+    entID = tk.Entry(frame_widgetscontenido1)
+    entID.grid(padx=separacionx, pady=separacion, row=1, column=1)
+    entMarca = tk.Entry(frame_widgetscontenido1)
+    entMarca.grid(padx=separacionx, pady=separacion, row=2, column=1)
+    entMedida = tk.Entry(frame_widgetscontenido1)
+    entMedida.grid(padx=separacionx, pady=separacion, row=3, column=1)
+    entDisponible = tk.Entry(frame_widgetscontenido1)
+    entDisponible.grid(padx=separacionx, pady=separacion, row=4, column=1)
+
+    # Función para obtener el texto de los Entry y guardar en la base de datos
+    def guardar_datos():
+        id_value = entID.get()
+        marca_value = entMarca.get()
+        medida_value = entMedida.get()
+        disponible_value = entDisponible.get()
+        
+        # Llama a la función de insertar datos
+        insertar_datos(id_value, marca_value, medida_value, disponible_value)
+
+        
+    btnguardarinventario=tk.Button(frame_widgetscontenido1, text='Guardar',command=guardar_datos).grid(padx=separacionx,pady=separacion, row=5,column=1,)
+    btnguardarinventario=tk.Button(frame_widgetscontenido1, text='boton').grid(padx=separacionx,pady=separacion, row=5,column=0,)
 
 
     #seccion2
@@ -156,8 +175,8 @@ def mostrar_inventario():
     entMarca = tk.Entry(frame_widgetscontenido2).grid(padx=separacionx,pady=separacion, row=2,column=1)
     entMedida= tk.Entry(frame_widgetscontenido2).grid(padx=separacionx, pady=separacion,row=3,column=1)
     entDisponible = tk.Entry(frame_widgetscontenido2).grid(padx=separacionx, pady=separacion,row=4,column=1)
-    btnguardarinventario=tk.Button(frame_widgetscontenido2, text='Guardar', command=llenar_datos_inventario).grid(padx=separacionx,pady=separacion, row=5,column=0,)
-    btneliminarinventario=tk.Button(frame_widgetscontenido2, text='Eliminar', command=llenar_datos_inventario).grid(padx=separacionx,pady=separacion, row=5,column=1)
+    btnguardarinventario=tk.Button(frame_widgetscontenido2, text='Guardar').grid(padx=separacionx,pady=separacion, row=5,column=0,)
+    btneliminarinventario=tk.Button(frame_widgetscontenido2, text='Eliminar').grid(padx=separacionx,pady=separacion, row=5,column=1)
 
     #seccion3
     color1 = tk.Label(frame_widgetscontenido3, bg=colorbanner, height=2)
@@ -175,11 +194,11 @@ def mostrar_inventario():
     entMedida= tk.Entry(frame_widgetscontenido3).grid(padx=separacionx,pady=separacion, row=3,column=1)
     entEntrada = tk.Entry(frame_widgetscontenido3).grid(padx=separacionx,pady=separacion, row=4,column=1)
     entSalida = tk.Entry(frame_widgetscontenido3).grid(padx=separacionx,pady=separacion, row=5,column=1)
-    btnBuscar=tk.Button(frame_widgetscontenido3, text='Buscar', command=llenar_datos_inventario).grid(padx=separacionx,pady=separacion, row=6,column=0)
-    btnProcesar=tk.Button(frame_widgetscontenido3, text='Procesar', command=llenar_datos_inventario).grid(padx=separacionx,pady=separacion, row=6,column=1)
-
+    btnBuscar=tk.Button(frame_widgetscontenido3, text='Buscar').grid(padx=separacionx,pady=separacion, row=6,column=0)
+    btnProcesar=tk.Button(frame_widgetscontenido3, text='Procesar').grid(padx=separacionx,pady=separacion, row=6,column=1)
     
-
+   
+    
 
 def reportes():
     limpiar_frame(framecontenido)
