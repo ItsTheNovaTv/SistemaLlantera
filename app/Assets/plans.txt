@@ -1,0 +1,14 @@
+
+
+Inventario
+En seccion 3
+Si le das a Procesar 
+Programa te pide contraseña
+
+Entry Entradas se verifica si esta vacio
+	if Entradas !Null
+		1. por medio del id obtener todos los datos de tabla llantas a exepcion de la cantidad disponible, añadir a tabla salidas la transaccion con tupla , id, nombre, salidas, fecha.
+		2. por medio del id,obtener la cantidad disponible guardar en variable, realizar operacion +, actualizar la tabla llantas con nueva cantidad disponible.
+	if Salidas !Null
+		1. por medio del id obtener todos los datos de tabla llantas a exepcion de la cantidad disponible, añadir a tabla salidas la transaccion con tupla , id, nombre, salidas, fecha.
+		2. por medio del id,obtener la cantidad disponible guardar en variable, realizar operacion -, actualizar la tabla llantas con nueva cantidad disponible.

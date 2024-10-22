@@ -3,9 +3,10 @@ from tkinter import ttk
 from PIL import Image, ImageTk
 import os
 from conexion import obtener_datos_inventario, obtener_proveedor,llenar_datos_inventario
+from tkinter import Scrollbar
 
 # Colores de fondo y banner
-colorfondo = '#1f1f1f'
+colorfondo = '#575757'
 colorbanner = '#2b2d42'
 
 def limpiar_frame(frame):
@@ -66,10 +67,9 @@ def mostrar_inventario():
     frame_treeview_inventario = tk.Frame(framecontenido, width=100)  
     frame_treeview_inventario.pack(side='left', fill='y')
 
-    frame_widgetscontenido = tk.Frame(framecontenido)
-    frame_widgetscontenido.pack(side='right', expand=True, fill='both')
 
-    # Treeview para mostrar proveedores
+
+    # Treeview para mostrar inventario
     TablaInventario = ttk.Treeview(frame_treeview_inventario, columns=("ID", "Marca", "Medida", "Disponible"), show='headings')
     TablaInventario.pack(side='left', anchor='n', fill='y')
 
@@ -96,22 +96,88 @@ def mostrar_inventario():
     for fila in datos:
         TablaInventario.insert('', 'end', values=fila)
 
-    separacionx = 5
-    separacion=5
+    frame_widgetscontenido = tk.Frame(framecontenido, background=colorfondo)
+    frame_widgetscontenido.pack(side='right', expand=True, fill='y')
+    separacionx = 6
+    separacion=8
 
-    lblID= tk.Label(frame_widgetscontenido, text='ID: ').grid(padx=separacionx, pady=separacion,row=0,column=0)
-    lblMarca= tk.Label(frame_widgetscontenido, text='Marca: ').grid(padx=separacionx, pady=separacion,row=1,column=0)
-    lblMedida = tk.Label(frame_widgetscontenido, text='Medida: ').grid(padx=separacionx, pady=separacion,row=2,column=0)
-    lblDisponible= tk.Label(frame_widgetscontenido,text='Disponible: ').grid(padx=separacionx, row=3,column=0)
+
+    #Frame inferior dentro de frame_widgetcontenidoinferior
+    myscrollbar=ttk.Scrollbar(frame_widgetscontenido,orient="horizontal")
+  
+    myscrollbar.pack(side="bottom",fill="x")
+
+    frame_widgetscontenidoinferior = tk.Frame(frame_widgetscontenido, highlightbackground="black", highlightthickness=4)
+    frame_widgetscontenidoinferior.pack(pady=separacion, padx=separacionx, fill='both', expand=True, side='bottom', anchor='center')
+    label1 = tk.Label(frame_widgetscontenidoinferior, height=3, background=colorbanner).pack(side='bottom', fill='x')
+
+
+
+    frame_widgetscontenido1 = tk.Frame(frame_widgetscontenido, highlightbackground="black", highlightthickness=4)
+    frame_widgetscontenido1.pack(pady=separacion,anchor='n',side='left', padx=separacionx)
+    frame_widgetscontenido2 = tk.Frame(frame_widgetscontenido, highlightbackground="black", highlightthickness=4)
+    frame_widgetscontenido2.pack(pady=separacion,anchor='n',side='left', padx=separacionx)    
+    frame_widgetscontenido3 = tk.Frame(frame_widgetscontenido, highlightbackground="black", highlightthickness=4)
+    frame_widgetscontenido3.pack(pady=separacion,anchor='n',side='left', padx=separacionx)
+
+
+
     
-    entID= tk.Entry(frame_widgetscontenido).grid(padx=separacionx, pady=separacion,row=0,column=1)
-    entMarca = tk.Entry(frame_widgetscontenido).grid(padx=separacionx, row=1,column=1)
-    entMedida= tk.Entry(frame_widgetscontenido).grid(padx=separacionx, row=2,column=1)
-    entDisponible = tk.Entry(frame_widgetscontenido).grid(padx=separacionx, row=3,column=1)
 
 
+    #seccion1
+    color1 = tk.Label(frame_widgetscontenido1, bg=colorbanner, height=2)
+    color1.grid(row=0, column=0, columnspan=2, sticky="we")
+    lblID= tk.Label(frame_widgetscontenido1, text='ID: ').grid(padx=separacionx, pady=separacion,row=1,column=0)
+    lblMarca= tk.Label(frame_widgetscontenido1, text='Marca: ').grid(padx=separacionx, pady=separacion,row=2,column=0)
+    lblMedida = tk.Label(frame_widgetscontenido1, text='Medida: ').grid(padx=separacionx, pady=separacion,row=3,column=0)
+    lblDisponible= tk.Label(frame_widgetscontenido1,text='Disponible: ').grid(padx=separacionx,pady=separacion, row=4,column=0)
 
-    btnguardarinventario=tk.Button(frame_widgetscontenido, text='Guardar', command=llenar_datos_inventario).grid(padx=separacionx,pady=separacion, row=4,column=3)
+    color2 = tk.Label(frame_widgetscontenido1, bg=colorbanner, height=2)
+    color2.grid(row=0, column=1, columnspan=2, sticky="we")    
+    entID= tk.Entry(frame_widgetscontenido1).grid(padx=separacionx, pady=separacion,row=1,column=1)
+    entMarca = tk.Entry(frame_widgetscontenido1).grid(padx=separacionx,pady=separacion, row=2,column=1)
+    entMedida= tk.Entry(frame_widgetscontenido1).grid(padx=separacionx,pady=separacion, row=3,column=1)
+    entDisponible = tk.Entry(frame_widgetscontenido1).grid(padx=separacionx,pady=separacion, row=4,column=1)
+    btnguardarinventario=tk.Button(frame_widgetscontenido1, text='Guardar', command=llenar_datos_inventario).grid(padx=separacionx,pady=separacion, row=5,column=1,)
+
+
+    #seccion2
+    color1 = tk.Label(frame_widgetscontenido2, bg=colorbanner, height=2)
+    color1.grid(row=0, column=0, columnspan=2, sticky="we")
+    lblID= tk.Label(frame_widgetscontenido2, text='ID: ').grid(padx=separacionx, pady=separacion,row=1,column=0)
+    lblMarca= tk.Label(frame_widgetscontenido2, text='Marca: ').grid(padx=separacionx, pady=separacion,row=2,column=0)
+    lblMedida = tk.Label(frame_widgetscontenido2, text='Medida: ').grid(padx=separacionx, pady=separacion,row=3,column=0)
+    lblDisponible= tk.Label(frame_widgetscontenido2,text='Disponible: ').grid(padx=separacionx,pady=separacion, row=4,column=0)
+    
+    color2 = tk.Label(frame_widgetscontenido2, bg=colorbanner, height=2)
+    color2.grid(row=0, column=1, columnspan=2, sticky="we")
+    entID= tk.Entry(frame_widgetscontenido2).grid(padx=separacionx, pady=separacion,row=1,column=1)
+    entMarca = tk.Entry(frame_widgetscontenido2).grid(padx=separacionx,pady=separacion, row=2,column=1)
+    entMedida= tk.Entry(frame_widgetscontenido2).grid(padx=separacionx, pady=separacion,row=3,column=1)
+    entDisponible = tk.Entry(frame_widgetscontenido2).grid(padx=separacionx, pady=separacion,row=4,column=1)
+    btnguardarinventario=tk.Button(frame_widgetscontenido2, text='Guardar', command=llenar_datos_inventario).grid(padx=separacionx,pady=separacion, row=5,column=0,)
+    btneliminarinventario=tk.Button(frame_widgetscontenido2, text='Eliminar', command=llenar_datos_inventario).grid(padx=separacionx,pady=separacion, row=5,column=1)
+
+    #seccion3
+    color1 = tk.Label(frame_widgetscontenido3, bg=colorbanner, height=2)
+    color1.grid(row=0, column=0, columnspan=2, sticky="we")
+    lblID= tk.Label(frame_widgetscontenido3, text='ID: ').grid(padx=separacionx, pady=separacion,row=1,column=0)
+    lblMarca= tk.Label(frame_widgetscontenido3, text='Marca: ').grid(padx=separacionx, pady=separacion,row=2,column=0)
+    lblMedida = tk.Label(frame_widgetscontenido3, text='Medida: ').grid(padx=separacionx, pady=separacion,row=3,column=0)
+    lblEntrada= tk.Label(frame_widgetscontenido3,text='Entrada: ').grid(padx=separacionx, pady=separacion, row=4,column=0)
+    lblSalida= tk.Label(frame_widgetscontenido3,text='Salida: ').grid(padx=separacionx,pady=separacion, row=5,column=0)
+    
+    color2 = tk.Label(frame_widgetscontenido3, bg=colorbanner, height=2)
+    color2.grid(row=0, column=1, columnspan=2, sticky="we")
+    entID= tk.Entry(frame_widgetscontenido3).grid(padx=separacionx, pady=separacion,row=1,column=1)
+    entMarca = tk.Entry(frame_widgetscontenido3).grid(padx=separacionx,pady=separacion, row=2,column=1)
+    entMedida= tk.Entry(frame_widgetscontenido3).grid(padx=separacionx,pady=separacion, row=3,column=1)
+    entEntrada = tk.Entry(frame_widgetscontenido3).grid(padx=separacionx,pady=separacion, row=4,column=1)
+    entSalida = tk.Entry(frame_widgetscontenido3).grid(padx=separacionx,pady=separacion, row=5,column=1)
+    btnBuscar=tk.Button(frame_widgetscontenido3, text='Buscar', command=llenar_datos_inventario).grid(padx=separacionx,pady=separacion, row=6,column=0)
+    btnProcesar=tk.Button(frame_widgetscontenido3, text='Procesar', command=llenar_datos_inventario).grid(padx=separacionx,pady=separacion, row=6,column=1)
+
     
 
 
@@ -171,7 +237,7 @@ def cargar_imagen(ruta):
 def cargar_imagenlogo(ruta):
     try:
         imagen = Image.open(ruta)
-        imagen = imagen.resize((100,70), Image.LANCZOS)
+        imagen = imagen.resize((110,110), Image.LANCZOS)
         return ImageTk.PhotoImage(imagen)
     except FileNotFoundError:
         print(f"Error: no se puede encontrar el archivo en la ruta {ruta}")
@@ -193,24 +259,24 @@ window.configure(bg=colorfondo)
 framesuperior = tk.Frame(window, height=220, bg='#005a9d')
 
 framelateral = tk.Frame(window, bg=colorbanner)
-framesuperior.pack(side='top', fill='both', ipady=40)
+framesuperior.pack(side='top', fill='both', ipady=30)
 framelateral.pack(side='left', fill='y')
 framecontenido = tk.Frame(window, bg='gray')
 framecontenido.pack(side='right', fill='both', expand=True, pady=25, padx=25, anchor='e')
 
 # Widgets framsuperior
-lbllogo = tk.Label(framesuperior, image=imagenlogo,background=colorbanner).pack(side='left', fill='y')
+lbllogo = tk.Label(framesuperior, image=imagenlogo,background=colorbanner).pack(side='left', fill='both',ipadx=20,)
 label1 = ttk.Label(framesuperior, text='  Llantera Urias', font=('Arial', 25, 'bold'), background=colorbanner, foreground='white')
 label1.pack(side='left', fill='both', expand=True)
 
 # Botones laterales
-btnInventario = tk.Button(framelateral, image=imagenrueda, command=mostrar_inventario, borderwidth=0, background='lightgray')
+btnInventario = tk.Button(framelateral, image=imagenrueda, command=mostrar_inventario, borderwidth=0, background='white')
 btnInventario.pack(side='top', pady=22, padx=20)
 
-btnProveedor = tk.Button(framelateral, image=imagenproveedor, command=mostrar_proveedor, borderwidth=0, background='lightgray')
+btnProveedor = tk.Button(framelateral, image=imagenproveedor, command=mostrar_proveedor, borderwidth=0, background='white')
 btnProveedor.pack(side='top', pady=22, padx=20)
 
-btnReporte = tk.Button(framelateral, image=imagenreporte, command=reportes, borderwidth=0, background='lightgray')
+btnReporte = tk.Button(framelateral, image=imagenreporte, command=reportes, borderwidth=0, background='white')
 btnReporte.pack(side='top', pady=22, padx=20)
 
 # Configuración y ejecución de la ventana principal
