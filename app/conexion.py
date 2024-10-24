@@ -1,6 +1,5 @@
 import mysql.connector
-admin = False
-
+admin = True
 
 if admin == True:
     credencial = 'root'
@@ -8,7 +7,6 @@ if admin == True:
 else:
         credencial = 'newuser'
         credencialpass='user'
-
 
 def conectar_bd():
     """Establecer conexión con la base de datos."""
@@ -40,30 +38,12 @@ def obtener_datos_inventario():
         return filas
     return []
 
-def insertar_datos(id_value, marca_value, medida_value, disponible_value):
-    """Se guardaran datos en tabla llantas"""
-    conexion = conectar_bd()
-    if conexion:
-            cursor = conexion.cursor()
-            sql = "INSERT INTO llantas (id, marca, medida, cantidad_disponible) VALUES (%s, %s, %s, %s)"
-            valores = (id_value, marca_value, medida_value, disponible_value)
-            cursor.execute(sql, valores)
-            conexion.commit()
-            cursor.close()
-            conexion.close()
-            print("Datos insertados correctamente.")
-    else:
-        print("No se pudo establecer la conexión.")
-
-
-    
+def llenar_datos_inventario():
+    """Se guardaran datos en tabla llantas dependiendo del id"""
     print('Se guardaron los datos')
 
 def Salida_datos_inventario():
     """Funcion para mover datos de tabla llantas a salida, quizas con trigger"""
-
-
-
 
 def obtener_proveedor():
     """Obtener datos de la tabla proveedor."""
@@ -79,3 +59,45 @@ def obtener_proveedor():
         conexion.close()
         return filas
     return []
+
+def insertar(id_value, marca_value, medida_value, disponible_value):
+    """Insertar datos en la tabla 'llantas'."""
+    conexion = conectar_bd()
+    if conexion is not None:
+        try:
+            cursor = conexion.cursor()
+            sql = """
+                INSERT INTO llantas (id, marca, medida, cantidad_disponible) 
+                VALUES (%s, %s, %s, %s)
+            """
+            valores = (id_value, marca_value, medida_value, disponible_value)
+            cursor.execute(sql, valores)
+            conexion.commit()  # Guardar los cambios en la base de datos
+            print("Datos insertados correctamente.")
+        except mysql.connector.Error as e:
+            print(f"Error al insertar los datos: {e}")
+        finally:
+            cursor.close()
+            conexion.close()
+    else:
+        print("No se pudo establecer la conexión con la base de datos.")
+
+
+def actualizar(conexion, id_value, marca_value, medida_value, cantidad_disponible):
+    cursor = conexion.cursor()
+    sql = "UPDATE llantas SET marca = %s, medida = %s, cantidad_disponible = %s WHERE id = %s"
+    valores = (marca_value, medida_value, cantidad_disponible, id_value)
+    cursor.execute(sql, valores)
+    conexion.commit()
+    cursor.close()
+    print("Datos actualizados correctamente")
+
+
+def eliminar(conexion, id_value):
+    cursor = conexion.cursor()
+    sql = "DELETE FROM llantas WHERE id = %s"
+    value = (id_value,)
+    cursor.execute(sql, value)
+    conexion.commit()
+    cursor.close()
+    print("Datos eliminados correctamente")
