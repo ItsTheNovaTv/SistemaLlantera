@@ -1,14 +1,12 @@
 import mysql.connector
 admin = True
 
-
 if admin == True:
     credencial = 'root'
     credencialpass='root'
 else:
         credencial = 'newuser'
         credencialpass='user'
-
 
 def conectar_bd():
     """Establecer conexión con la base de datos."""
@@ -42,16 +40,10 @@ def obtener_datos_inventario():
 
 def llenar_datos_inventario():
     """Se guardaran datos en tabla llantas dependiendo del id"""
-
-
-    
     print('Se guardaron los datos')
 
 def Salida_datos_inventario():
     """Funcion para mover datos de tabla llantas a salida, quizas con trigger"""
-
-
-
 
 def obtener_proveedor():
     """Obtener datos de la tabla proveedor."""

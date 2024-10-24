@@ -126,15 +126,12 @@ def mostrar_inventario():
 
 
     #seccion1
-    color1 = tk.Label(frame_widgetscontenido1, bg=colorbanner, height=2)
+    color1 = tk.Label(frame_widgetscontenido1, bg=colorbanner, height=2,text='Buscar')
     color1.grid(row=0, column=0, columnspan=2, sticky="we")
     lblID= tk.Label(frame_widgetscontenido1, text='ID: ').grid(padx=separacionx, pady=separacion,row=1,column=0)
     lblMarca= tk.Label(frame_widgetscontenido1, text='Marca: ').grid(padx=separacionx, pady=separacion,row=2,column=0)
     lblMedida = tk.Label(frame_widgetscontenido1, text='Medida: ').grid(padx=separacionx, pady=separacion,row=3,column=0)
     lblDisponible= tk.Label(frame_widgetscontenido1,text='Disponible: ').grid(padx=separacionx,pady=separacion, row=4,column=0)
-
-    color2 = tk.Label(frame_widgetscontenido1, bg=colorbanner, height=2)
-    color2.grid(row=0, column=1, columnspan=2, sticky="we")
 
     # Crear y colocar los Entry
     entID = tk.Entry(frame_widgetscontenido1)
@@ -162,15 +159,14 @@ def mostrar_inventario():
 
 
     #seccion2
-    color1 = tk.Label(frame_widgetscontenido2, bg=colorbanner, height=2)
+    color1 = tk.Label(frame_widgetscontenido2,text='', bg=colorbanner, height=2)
     color1.grid(row=0, column=0, columnspan=2, sticky="we")
     lblID= tk.Label(frame_widgetscontenido2, text='ID: ').grid(padx=separacionx, pady=separacion,row=1,column=0)
     lblMarca= tk.Label(frame_widgetscontenido2, text='Marca: ').grid(padx=separacionx, pady=separacion,row=2,column=0)
     lblMedida = tk.Label(frame_widgetscontenido2, text='Medida: ').grid(padx=separacionx, pady=separacion,row=3,column=0)
     lblDisponible= tk.Label(frame_widgetscontenido2,text='Disponible: ').grid(padx=separacionx,pady=separacion, row=4,column=0)
     
-    color2 = tk.Label(frame_widgetscontenido2, bg=colorbanner, height=2)
-    color2.grid(row=0, column=1, columnspan=2, sticky="we")
+
     entID= tk.Entry(frame_widgetscontenido2).grid(padx=separacionx, pady=separacion,row=1,column=1)
     entMarca = tk.Entry(frame_widgetscontenido2).grid(padx=separacionx,pady=separacion, row=2,column=1)
     entMedida= tk.Entry(frame_widgetscontenido2).grid(padx=separacionx, pady=separacion,row=3,column=1)
@@ -285,7 +281,7 @@ framecontenido.pack(side='right', fill='both', expand=True, pady=25, padx=25, an
 
 # Widgets framsuperior
 lbllogo = tk.Label(framesuperior, image=imagenlogo,background=colorbanner).pack(side='left', fill='both',ipadx=20,)
-label1 = ttk.Label(framesuperior, text='  Llantera Urias', font=('Arial', 25, 'bold'), background=colorbanner, foreground='white')
+label1 = ttk.Label(framesuperior, text='  Llantera Del Desierto', font=('Arial', 25, 'bold'), background=colorbanner, foreground='white')
 label1.pack(side='left', fill='both', expand=True)
 
 # Botones laterales

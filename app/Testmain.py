@@ -110,8 +110,6 @@ def mostrar_inventario():
     frame_widgetscontenidoinferior.pack(pady=separacion, padx=separacionx, fill='both', expand=True, side='bottom', anchor='center')
     label1 = tk.Label(frame_widgetscontenidoinferior, height=3, background=colorbanner).pack(side='bottom', fill='x')
 
-
-
     frame_widgetscontenido1 = tk.Frame(frame_widgetscontenido, highlightbackground="black", highlightthickness=4)
     frame_widgetscontenido1.pack(pady=separacion,anchor='n',side='left', padx=separacionx)
     frame_widgetscontenido2 = tk.Frame(frame_widgetscontenido, highlightbackground="black", highlightthickness=4)
@@ -142,8 +140,10 @@ def mostrar_inventario():
     entMedida.grid(padx=separacionx,pady=separacion, row=3,column=1)
     entDisponible = tk.Entry(frame_widgetscontenido1)
     entDisponible.grid(padx=separacionx,pady=separacion, row=4,column=1)
-
-    btnguardarinventario=tk.Button(frame_widgetscontenido1, text='Guardar', command=llenar_datos_inventario).grid(padx=separacionx,pady=separacion, row=5,column=1,)
+    def obtener_datos():
+        ID_Value = entID.get()
+        print(entID.get)
+    btnguardarinventario=tk.Button(frame_widgetscontenido1, text='Guardar', command=obtener_datos).grid(padx=separacionx,pady=separacion, row=5,column=1,)
 
 
     #seccion2

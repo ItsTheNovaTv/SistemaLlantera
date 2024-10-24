@@ -1,5 +1,5 @@
 import mysql.connector
-admin = True
+admin = False
 
 
 if admin == True:
