@@ -114,19 +114,25 @@ def cargar_combo():
    
 
 
-def actualizar(conexion, id_value, marca_value, medida_value, cantidad_disponible):
-    
-    messagebox.YESNO(message='Esta a punto de realizar un cambio en un dato existente. ¿Desea continuar?.')
-    cursor = conexion.cursor()
-    sql = "UPDATE llantas SET marca = %s, medida = %s, cantidad_disponible = %s WHERE id = %s"
-    valores = (marca_value, medida_value, cantidad_disponible, id_value)
-    cursor.execute(sql, valores)
-    conexion.commit()
-    cursor.close()
-    print("Datos actualizados correctamente")
+def actualizar(marca_value2, medida_value2, cantidad_disponible2, id_value2):
+    respuesta = messagebox.askyesno(
+        title="Confirmar actualización",
+        message="Está a punto de realizar un cambio en un dato existente. ¿Desea continuar?"
+    )
 
-
-def eliminar(conexion, id_value):
+    if respuesta:
+        conexion = conectar_bd()  # Conectar a la base de datos
+        cursor = conexion.cursor()
+        sql = "UPDATE llantas SET marca = %s, medida = %s, cantidad_disponible = %s WHERE id = %s"
+        valores = (marca_value2, medida_value2, cantidad_disponible2, id_value2)
+        cursor.execute(sql, valores)
+        conexion.commit()
+        cursor.close()
+        print("Datos actualizados correctamente")
+    else:
+        print("Actualización cancelada por el usuario")
+def eliminar(id_value):
+    conexion = conectar_bd()
     cursor = conexion.cursor()
     sql = "DELETE FROM llantas WHERE id = %s"
     value = (id_value,)
@@ -144,6 +150,33 @@ def obtener_datos_llanta(id_llanta):
         resultado = cursor.fetchone()
         if resultado:
             return resultado  # (marca, medida, cantidad_disponible)
+        else:
+            return None
+
+    except mysql.connector.Error as error:
+        print(f"Error al obtener datos de llanta: {error}")
+        return None
+
+    finally:
+        if conexion.is_connected():
+            cursor.close()
+            conexion.close()
+
+def obtener_datos_llanta2(id_llanta):
+    try:
+        conexion = conectar_bd()
+        cursor = conexion.cursor()
+        consulta = "SELECT marca, medida, cantidad_disponible FROM llantas WHERE id = %s"
+        cursor.execute(consulta, (id_llanta,))
+        resultado = cursor.fetchone()
+        
+        if resultado:
+            # Asegúrate de que se devuelven tres valores
+            if len(resultado) == 3:
+                return resultado  # (marca, medida, cantidad_disponible)
+            else:
+                print("Error: Se esperaban 3 valores, pero se obtuvieron menos.")
+                return None
         else:
             return None
 
