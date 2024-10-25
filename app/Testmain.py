@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 import os
-from Testconexion import *
+from CC.Testconexion import *
 from tkinter import Scrollbar
 
 # Colores de fondo y banner
@@ -139,8 +139,32 @@ def mostrar_inventario():
         insertar_datos(id_value1, Marca_value1, Medida_value1, Disponible_value1)
     
     btnguardarinventario=tk.Button(frame_widgetscontenido1, text='Guardar', command=obtener_datos).grid(padx=separacionx,pady=separacion, row=5,column=1,)
-
     #seccion2
+    def dropdown_opened():
+            try:
+                combo_values = cargar_combo()
+                cbcombo['values'] = combo_values
+                if not combo_values:
+                    print("No se encontraron datos para el combobox.")
+            except Exception as e:
+                print(f"Error en dropdown_opened: {e}")
+
+    def selection_changed(event):
+        seleccion = cbcombo.get()  # Obtener el valor seleccionado
+        if seleccion:
+         datos_llanta = obtener_datos_llanta(seleccion)
+        if datos_llanta:
+            marca, medida, disponible = datos_llanta
+            entMarca2.delete(0, tk.END)  # Limpiar la entrada
+            entMarca2.insert(0, marca)   # Asignar el valor de 'marca'
+            entMedida2.delete(0, tk.END)  # Limpiar la entrada
+            entMedida2.insert(0, medida)  # Asignar el valor de 'medida'
+            entDisponible2.delete(0, tk.END)  # Limpiar la entrada
+            entDisponible2.insert(0, disponible)  # Asignar el valor de 'disponible'
+        else:
+            messagebox.showerror("Error", "No se encontraron datos para la llanta seleccionada.")
+
+    
     color1 = tk.Label(frame_widgetscontenido2, bg=colorbanner, height=2,text='Editar', foreground='white', font=('Arial', 16, 'bold'))
     color1.grid(row=0, column=0, columnspan=2, sticky="we")
     lblID2= tk.Label(frame_widgetscontenido2, text='ID: ')
@@ -152,8 +176,9 @@ def mostrar_inventario():
     lblDisponible2= tk.Label(frame_widgetscontenido2,text='Disponible: ')
     lblDisponible2.grid(padx=separacionx,pady=separacion, row=4,column=0)
     
-    entID2= tk.Entry(frame_widgetscontenido2)
-    entID2.grid(padx=separacionx, pady=separacion,row=1,column=1)
+    cbcombo= ttk.Combobox(frame_widgetscontenido2, postcommand=dropdown_opened)
+    cbcombo.grid(padx=separacionx, pady=separacion,row=1,column=1)
+    cbcombo.bind("<<ComboboxSelected>>", selection_changed)
     entMarca2 = tk.Entry(frame_widgetscontenido2)
     entMarca2.grid(padx=separacionx,pady=separacion, row=2,column=1)
     entMedida2= tk.Entry(frame_widgetscontenido2)
@@ -161,16 +186,10 @@ def mostrar_inventario():
     entDisponible2 = tk.Entry(frame_widgetscontenido2)
     entDisponible2.grid(padx=separacionx, pady=separacion,row=4,column=1)
 
-    def obtener_datos():
-        id_value2 = entID2.get()
-        Marca_value2=entMarca2.get()
-        Medida_value2=entMedida2.get()
-        Disponible_value2=entDisponible2.get()
-
-        print(id_value2, Marca_value2, Medida_value2, Disponible_value2)
-
+        
     btnguardarinventario=tk.Button(frame_widgetscontenido2, text='Guardar', command=llenar_datos_inventario).grid(padx=separacionx,pady=separacion, row=5,column=0,)
     btneliminarinventario=tk.Button(frame_widgetscontenido2, text='Eliminar', command=llenar_datos_inventario).grid(padx=separacionx,pady=separacion, row=5,column=1)
+    
 
     #seccion3
     color1 = tk.Label(frame_widgetscontenido3, bg=colorbanner, height=2, text='Entradas/Salidas', foreground='white', font=('Arial', 16, 'bold'))
@@ -302,6 +321,7 @@ btnProveedor.pack(side='top', pady=22, padx=20)
 
 btnReporte = tk.Button(framelateral, image=imagenreporte, command=reportes, borderwidth=0, background='white')
 btnReporte.pack(side='top', pady=22, padx=20)
+
 
 # Configuración y ejecución de la ventana principal
 window.mainloop()
