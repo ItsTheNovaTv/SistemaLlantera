@@ -480,23 +480,6 @@ btn_pdf_proveedores.pack(pady=10)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Crear ventana principal
 # Cargar imágenes
 def cargar_imagen(ruta):

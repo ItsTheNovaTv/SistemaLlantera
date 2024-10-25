@@ -376,7 +376,7 @@ btnInventario.pack(side='top', pady=22, padx=20)
 btnProveedor = tk.Button(framelateral, image=imagenproveedor, command=mostrar_proveedor, borderwidth=0, background='white')
 btnProveedor.pack(side='top', pady=22, padx=20)
 
-btnReporte = tk.Button(framelateral, image=imagenreporte, command=reportes, borderwidth=0, background='white')
+btnReporte = tk.Button(framelateral, image=imagenreporte, command = reportes, borderwidth=0, background='white')
 btnReporte.pack(side='top', pady=22, padx=20)
 
 btnCerrarSesion = tk.Button(framesuperior, image=imagensesion, command=reportes, borderwidth=0, background=colorbanner)
